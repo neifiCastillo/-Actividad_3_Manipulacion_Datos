@@ -95,7 +95,7 @@ namespace PracticaWinFormsTienda.Repositories
 
                 string query = @"INSERT INTO Proveedores
                                  (NombreProveedor, Telefono, CorreoElectronico)
-                                 VALUES (@id,@nombre,@telefono,@correo)";
+                                 VALUES (@nombre,@telefono,@correo)";
 
                 using var cmd = new SqlCommand(query, conn);
 
