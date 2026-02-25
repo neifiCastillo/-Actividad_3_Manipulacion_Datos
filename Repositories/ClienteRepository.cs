@@ -74,11 +74,11 @@ namespace PracticaWinFormsTienda.Repositories
             await conn.OpenAsync();
 
             string query = @"INSERT INTO Clientes
-                             VALUES (@nombre,@correo,@telefono,@direccion)";
+                             VALUES (@NombreCompleto,@correo,@telefono,@direccion)";
 
             using var cmd = new SqlCommand(query, conn);
 
-            cmd.Parameters.Add("@nombre", SqlDbType.VarChar, 150).Value = entity.NombreCompleto;
+            cmd.Parameters.Add("@NombreCompleto", SqlDbType.VarChar, 150).Value = entity.NombreCompleto;
             cmd.Parameters.Add("@correo", SqlDbType.VarChar, 100).Value =
                 (object?)entity.CorreoElectronico ?? DBNull.Value;
             cmd.Parameters.Add("@telefono", SqlDbType.VarChar, 15).Value =
