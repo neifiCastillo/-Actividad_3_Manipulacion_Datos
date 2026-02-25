@@ -37,29 +37,29 @@
             lblID = new Label();
             txtEliminarId = new TextBox();
             groupBoxInsertar = new GroupBox();
-            label7 = new Label();
+            lblCategoria = new Label();
             cboInsertCategoria = new ComboBox();
-            label6 = new Label();
+            lblstock = new Label();
             txtInsertStock = new TextBox();
-            label4 = new Label();
+            lblDescripcion = new Label();
             txtInsertDescripcion = new TextBox();
-            label3 = new Label();
+            lblprecio = new Label();
             txtInsertPrecio = new TextBox();
             lblNombreProducto = new Label();
             btnAgregar = new Button();
             txtInsertNombre = new TextBox();
             groupBox1 = new GroupBox();
-            label12 = new Label();
+            lblIdActualiar = new Label();
             txtActualizarId = new TextBox();
-            label1 = new Label();
+            lblCategoriaActualizar = new Label();
             cboActualizarCategoria = new ComboBox();
-            label2 = new Label();
+            lblStockActualizar = new Label();
             txtActualizarStock = new TextBox();
-            label8 = new Label();
+            lblPrecioActualizar = new Label();
             txtActualizarPrecio = new TextBox();
-            label9 = new Label();
+            lblNombreActualizar = new Label();
             txtActualizarNombre = new TextBox();
-            label11 = new Label();
+            lblDescricionActualizar = new Label();
             btnActualizar = new Button();
             txtActualizarDescripcion = new TextBox();
             groupBoxMostrar.SuspendLayout();
@@ -95,7 +95,7 @@
             btnCargar.Location = new Point(6, 22);
             btnCargar.Name = "btnCargar";
             btnCargar.Size = new Size(263, 33);
-            btnCargar.TabIndex = 2;
+            btnCargar.TabIndex = 16;
             btnCargar.Text = "Cargar";
             btnCargar.UseVisualStyleBackColor = true;
             btnCargar.Click += btnCargar_Click;
@@ -118,7 +118,7 @@
             btnEliminar.Location = new Point(50, 99);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(138, 33);
-            btnEliminar.TabIndex = 3;
+            btnEliminar.TabIndex = 8;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = true;
             btnEliminar.Click += btnEliminar_Click;
@@ -137,17 +137,18 @@
             txtEliminarId.Location = new Point(6, 56);
             txtEliminarId.Name = "txtEliminarId";
             txtEliminarId.Size = new Size(228, 23);
-            txtEliminarId.TabIndex = 1;
+            txtEliminarId.TabIndex = 7;
+            txtEliminarId.KeyPress += txtEliminarId_KeyPress;
             // 
             // groupBoxInsertar
             // 
-            groupBoxInsertar.Controls.Add(label7);
+            groupBoxInsertar.Controls.Add(lblCategoria);
             groupBoxInsertar.Controls.Add(cboInsertCategoria);
-            groupBoxInsertar.Controls.Add(label6);
+            groupBoxInsertar.Controls.Add(lblstock);
             groupBoxInsertar.Controls.Add(txtInsertStock);
-            groupBoxInsertar.Controls.Add(label4);
+            groupBoxInsertar.Controls.Add(lblDescripcion);
             groupBoxInsertar.Controls.Add(txtInsertDescripcion);
-            groupBoxInsertar.Controls.Add(label3);
+            groupBoxInsertar.Controls.Add(lblprecio);
             groupBoxInsertar.Controls.Add(txtInsertPrecio);
             groupBoxInsertar.Controls.Add(lblNombreProducto);
             groupBoxInsertar.Controls.Add(btnAgregar);
@@ -159,14 +160,14 @@
             groupBoxInsertar.TabStop = false;
             groupBoxInsertar.Text = "Insertar";
             // 
-            // label7
+            // lblCategoria
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(262, 94);
-            label7.Name = "label7";
-            label7.Size = new Size(58, 15);
-            label7.TabIndex = 13;
-            label7.Text = "Categoria";
+            lblCategoria.AutoSize = true;
+            lblCategoria.Location = new Point(262, 94);
+            lblCategoria.Name = "lblCategoria";
+            lblCategoria.Size = new Size(58, 15);
+            lblCategoria.TabIndex = 13;
+            lblCategoria.Text = "Categoria";
             // 
             // cboInsertCategoria
             // 
@@ -174,56 +175,56 @@
             cboInsertCategoria.Location = new Point(262, 116);
             cboInsertCategoria.Name = "cboInsertCategoria";
             cboInsertCategoria.Size = new Size(211, 23);
-            cboInsertCategoria.TabIndex = 12;
+            cboInsertCategoria.TabIndex = 4;
             // 
-            // label6
+            // lblstock
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(8, 153);
-            label6.Name = "label6";
-            label6.Size = new Size(36, 15);
-            label6.TabIndex = 11;
-            label6.Text = "Stock";
+            lblstock.AutoSize = true;
+            lblstock.Location = new Point(8, 153);
+            lblstock.Name = "lblstock";
+            lblstock.Size = new Size(36, 15);
+            lblstock.TabIndex = 11;
+            lblstock.Text = "Stock";
             // 
             // txtInsertStock
             // 
             txtInsertStock.Location = new Point(6, 175);
             txtInsertStock.Name = "txtInsertStock";
             txtInsertStock.Size = new Size(116, 23);
-            txtInsertStock.TabIndex = 10;
+            txtInsertStock.TabIndex = 5;
             txtInsertStock.KeyPress += txtInsertStock_KeyPress;
             // 
-            // label4
+            // lblDescripcion
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(262, 34);
-            label4.Name = "label4";
-            label4.Size = new Size(69, 15);
-            label4.TabIndex = 7;
-            label4.Text = "Descripcion";
+            lblDescripcion.AutoSize = true;
+            lblDescripcion.Location = new Point(262, 34);
+            lblDescripcion.Name = "lblDescripcion";
+            lblDescripcion.Size = new Size(69, 15);
+            lblDescripcion.TabIndex = 7;
+            lblDescripcion.Text = "Descripcion";
             // 
             // txtInsertDescripcion
             // 
             txtInsertDescripcion.Location = new Point(262, 56);
             txtInsertDescripcion.Name = "txtInsertDescripcion";
             txtInsertDescripcion.Size = new Size(211, 23);
-            txtInsertDescripcion.TabIndex = 6;
+            txtInsertDescripcion.TabIndex = 1;
             // 
-            // label3
+            // lblprecio
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(8, 94);
-            label3.Name = "label3";
-            label3.Size = new Size(40, 15);
-            label3.TabIndex = 5;
-            label3.Text = "Precio";
+            lblprecio.AutoSize = true;
+            lblprecio.Location = new Point(8, 94);
+            lblprecio.Name = "lblprecio";
+            lblprecio.Size = new Size(40, 15);
+            lblprecio.TabIndex = 5;
+            lblprecio.Text = "Precio";
             // 
             // txtInsertPrecio
             // 
             txtInsertPrecio.Location = new Point(6, 116);
             txtInsertPrecio.Name = "txtInsertPrecio";
             txtInsertPrecio.Size = new Size(222, 23);
-            txtInsertPrecio.TabIndex = 4;
+            txtInsertPrecio.TabIndex = 3;
             txtInsertPrecio.KeyPress += txtInsertPrecio_KeyPress;
             // 
             // lblNombreProducto
@@ -241,7 +242,7 @@
             btnAgregar.Location = new Point(148, 228);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(138, 33);
-            btnAgregar.TabIndex = 2;
+            btnAgregar.TabIndex = 6;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = true;
             btnAgregar.Click += btnAgregar_Click;
@@ -255,17 +256,17 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(label12);
+            groupBox1.Controls.Add(lblIdActualiar);
             groupBox1.Controls.Add(txtActualizarId);
-            groupBox1.Controls.Add(label1);
+            groupBox1.Controls.Add(lblCategoriaActualizar);
             groupBox1.Controls.Add(cboActualizarCategoria);
-            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(lblStockActualizar);
             groupBox1.Controls.Add(txtActualizarStock);
-            groupBox1.Controls.Add(label8);
+            groupBox1.Controls.Add(lblPrecioActualizar);
             groupBox1.Controls.Add(txtActualizarPrecio);
-            groupBox1.Controls.Add(label9);
+            groupBox1.Controls.Add(lblNombreActualizar);
             groupBox1.Controls.Add(txtActualizarNombre);
-            groupBox1.Controls.Add(label11);
+            groupBox1.Controls.Add(lblDescricionActualizar);
             groupBox1.Controls.Add(btnActualizar);
             groupBox1.Controls.Add(txtActualizarDescripcion);
             groupBox1.Location = new Point(734, 3);
@@ -275,30 +276,31 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Insertar";
             // 
-            // label12
+            // lblIdActualiar
             // 
-            label12.AutoSize = true;
-            label12.Location = new Point(10, 25);
-            label12.Name = "label12";
-            label12.Size = new Size(18, 15);
-            label12.TabIndex = 15;
-            label12.Text = "ID";
+            lblIdActualiar.AutoSize = true;
+            lblIdActualiar.Location = new Point(10, 25);
+            lblIdActualiar.Name = "lblIdActualiar";
+            lblIdActualiar.Size = new Size(18, 15);
+            lblIdActualiar.TabIndex = 15;
+            lblIdActualiar.Text = "ID";
             // 
             // txtActualizarId
             // 
             txtActualizarId.Location = new Point(8, 47);
             txtActualizarId.Name = "txtActualizarId";
             txtActualizarId.Size = new Size(116, 23);
-            txtActualizarId.TabIndex = 14;
+            txtActualizarId.TabIndex = 9;
+            txtActualizarId.KeyPress += txtActualizarId_KeyPress;
             // 
-            // label1
+            // lblCategoriaActualizar
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(8, 146);
-            label1.Name = "label1";
-            label1.Size = new Size(58, 15);
-            label1.TabIndex = 13;
-            label1.Text = "Categoria";
+            lblCategoriaActualizar.AutoSize = true;
+            lblCategoriaActualizar.Location = new Point(8, 146);
+            lblCategoriaActualizar.Name = "lblCategoriaActualizar";
+            lblCategoriaActualizar.Size = new Size(58, 15);
+            lblCategoriaActualizar.TabIndex = 13;
+            lblCategoriaActualizar.Text = "Categoria";
             // 
             // cboActualizarCategoria
             // 
@@ -306,66 +308,66 @@
             cboActualizarCategoria.Location = new Point(8, 168);
             cboActualizarCategoria.Name = "cboActualizarCategoria";
             cboActualizarCategoria.Size = new Size(220, 23);
-            cboActualizarCategoria.TabIndex = 12;
+            cboActualizarCategoria.TabIndex = 13;
             // 
-            // label2
+            // lblStockActualizar
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(262, 150);
-            label2.Name = "label2";
-            label2.Size = new Size(36, 15);
-            label2.TabIndex = 11;
-            label2.Text = "Stock";
+            lblStockActualizar.AutoSize = true;
+            lblStockActualizar.Location = new Point(262, 150);
+            lblStockActualizar.Name = "lblStockActualizar";
+            lblStockActualizar.Size = new Size(36, 15);
+            lblStockActualizar.TabIndex = 11;
+            lblStockActualizar.Text = "Stock";
             // 
             // txtActualizarStock
             // 
             txtActualizarStock.Location = new Point(260, 168);
             txtActualizarStock.Name = "txtActualizarStock";
             txtActualizarStock.Size = new Size(121, 23);
-            txtActualizarStock.TabIndex = 10;
+            txtActualizarStock.TabIndex = 14;
             txtActualizarStock.KeyPress += txtActualizarStock_KeyPress;
             // 
-            // label8
+            // lblPrecioActualizar
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(264, 84);
-            label8.Name = "label8";
-            label8.Size = new Size(40, 15);
-            label8.TabIndex = 9;
-            label8.Text = "Precio";
+            lblPrecioActualizar.AutoSize = true;
+            lblPrecioActualizar.Location = new Point(264, 84);
+            lblPrecioActualizar.Name = "lblPrecioActualizar";
+            lblPrecioActualizar.Size = new Size(40, 15);
+            lblPrecioActualizar.TabIndex = 9;
+            lblPrecioActualizar.Text = "Precio";
             // 
             // txtActualizarPrecio
             // 
             txtActualizarPrecio.Location = new Point(262, 106);
             txtActualizarPrecio.Name = "txtActualizarPrecio";
             txtActualizarPrecio.Size = new Size(211, 23);
-            txtActualizarPrecio.TabIndex = 8;
+            txtActualizarPrecio.TabIndex = 12;
             txtActualizarPrecio.KeyPress += txtActualizarPrecio_KeyPress;
             // 
-            // label9
+            // lblNombreActualizar
             // 
-            label9.AutoSize = true;
-            label9.Location = new Point(264, 25);
-            label9.Name = "label9";
-            label9.Size = new Size(51, 15);
-            label9.TabIndex = 7;
-            label9.Text = "Nombre";
+            lblNombreActualizar.AutoSize = true;
+            lblNombreActualizar.Location = new Point(264, 25);
+            lblNombreActualizar.Name = "lblNombreActualizar";
+            lblNombreActualizar.Size = new Size(51, 15);
+            lblNombreActualizar.TabIndex = 7;
+            lblNombreActualizar.Text = "Nombre";
             // 
             // txtActualizarNombre
             // 
             txtActualizarNombre.Location = new Point(264, 47);
             txtActualizarNombre.Name = "txtActualizarNombre";
             txtActualizarNombre.Size = new Size(211, 23);
-            txtActualizarNombre.TabIndex = 6;
+            txtActualizarNombre.TabIndex = 10;
             // 
-            // label11
+            // lblDescricionActualizar
             // 
-            label11.AutoSize = true;
-            label11.Location = new Point(8, 84);
-            label11.Name = "label11";
-            label11.Size = new Size(69, 15);
-            label11.TabIndex = 3;
-            label11.Text = "Descripcion";
+            lblDescricionActualizar.AutoSize = true;
+            lblDescricionActualizar.Location = new Point(8, 84);
+            lblDescricionActualizar.Name = "lblDescricionActualizar";
+            lblDescricionActualizar.Size = new Size(69, 15);
+            lblDescricionActualizar.TabIndex = 3;
+            lblDescricionActualizar.Text = "Descripcion";
             // 
             // btnActualizar
             // 
@@ -373,7 +375,7 @@
             btnActualizar.Location = new Point(175, 228);
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(138, 33);
-            btnActualizar.TabIndex = 2;
+            btnActualizar.TabIndex = 15;
             btnActualizar.Text = "Actualizar";
             btnActualizar.UseVisualStyleBackColor = true;
             btnActualizar.Click += btnActualizar_Click;
@@ -383,7 +385,7 @@
             txtActualizarDescripcion.Location = new Point(6, 106);
             txtActualizarDescripcion.Name = "txtActualizarDescripcion";
             txtActualizarDescripcion.Size = new Size(222, 23);
-            txtActualizarDescripcion.TabIndex = 0;
+            txtActualizarDescripcion.TabIndex = 11;
             // 
             // FrmProductos
             // 
@@ -425,26 +427,26 @@
         private Label lblNombreProducto;
         private Button btnAgregar;
         private TextBox txtInsertNombre;
-        private Label label4;
+        private Label lblDescripcion;
         private TextBox txtInsertDescripcion;
-        private Label label3;
+        private Label lblprecio;
         private TextBox txtInsertPrecio;
-        private Label label7;
+        private Label lblCategoria;
         private ComboBox cboInsertCategoria;
-        private Label label6;
+        private Label lblstock;
         private TextBox txtInsertStock;
         private GroupBox groupBox1;
-        private Label label12;
+        private Label lblIdActualiar;
         private TextBox txtActualizarId;
-        private Label label1;
+        private Label lblCategoriaActualizar;
         private ComboBox cboActualizarCategoria;
-        private Label label2;
+        private Label lblStockActualizar;
         private TextBox txtActualizarStock;
-        private Label label8;
+        private Label lblPrecioActualizar;
         private TextBox txtActualizarPrecio;
-        private Label label9;
+        private Label lblNombreActualizar;
         private TextBox txtActualizarNombre;
-        private Label label11;
+        private Label lblDescricionActualizar;
         private Button btnActualizar;
         private TextBox txtActualizarDescripcion;
     }

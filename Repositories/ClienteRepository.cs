@@ -19,7 +19,7 @@ namespace PracticaWinFormsTienda.Repositories
                 using var conn = _conexion.ObtenerConexion();
                 await conn.OpenAsync();
 
-                string query = "SELECT * FROM Clientes";
+                string query = "SELECT * FROM Clientes ORDER BY ClienteID DESC";
 
                 using var cmd = new SqlCommand(query, conn);
                 using var reader = await cmd.ExecuteReaderAsync();

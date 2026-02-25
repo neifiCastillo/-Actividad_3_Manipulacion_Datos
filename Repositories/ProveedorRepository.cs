@@ -26,7 +26,7 @@ namespace PracticaWinFormsTienda.Repositories
 
                 string query = @"SELECT ProveedorID, NombreProveedor, 
                                         Telefono, CorreoElectronico 
-                                 FROM Proveedores";
+                                 FROM Proveedores ORDER BY ProveedorID DESC";
 
                 using var cmd = new SqlCommand(query, conn);
                 using var reader = await cmd.ExecuteReaderAsync();

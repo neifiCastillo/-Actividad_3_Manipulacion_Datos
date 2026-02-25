@@ -1,5 +1,6 @@
 ﻿using PracticaWinFormsTienda.Models;
 using PracticaWinFormsTienda.Repositories.Interfaces;
+using PracticaWinFormsTienda.Utils;
 
 namespace PracticaWinFormsTienda.Forms
 {
@@ -28,7 +29,7 @@ namespace PracticaWinFormsTienda.Forms
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                UIHelper.MostrarError(ex.Message);
             }
             finally
             {
@@ -54,7 +55,7 @@ namespace PracticaWinFormsTienda.Forms
                         : txtInsertCorreo.Text.Trim(),
                     Telefono = string.IsNullOrWhiteSpace(txtInsertTelefono.Text)
                         ? null
-                        : txtInsertTelefono.Text.Trim(),
+                        : UIHelper.LimpiarTelefono(txtInsertTelefono.Text),
                     Direccion = string.IsNullOrWhiteSpace(txtInsertDireccion.Text)
                         ? null
                         : txtInsertDireccion.Text.Trim()
@@ -62,13 +63,13 @@ namespace PracticaWinFormsTienda.Forms
 
                 await _clienteRepo.InsertAsync(cliente);
 
-                MostrarInfo("Cliente insertado correctamente.");
+                UIHelper.MostrarInfo("Cliente insertado correctamente.");
                 LimpiarInsert();
                 await CargarClientesAsync();
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                UIHelper.MostrarError(ex.Message);
             }
         }
         private async void btnEliminar_Click(object sender, EventArgs e)
@@ -77,30 +78,27 @@ namespace PracticaWinFormsTienda.Forms
             {
                 if (string.IsNullOrWhiteSpace(txtEliminarId.Text))
                 {
-                    MostrarError("Debe ingresar el ID a eliminar.");
+                    UIHelper.MostrarError("Debe ingresar el ID a eliminar.");
                     return;
                 }
 
                 int id = int.Parse(txtEliminarId.Text);
 
-                var confirm = MessageBox.Show(
-                    "¿Seguro que desea eliminar este cliente?",
-                    "Confirmar eliminación",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning);
+                var confirm = UIHelper.Confirmar(
+                    "¿Seguro que desea eliminar este cliente?");
 
                 if (confirm == DialogResult.No)
                     return;
 
                 await _clienteRepo.DeleteAsync(id);
 
-                MostrarInfo("Cliente eliminado correctamente.");
+                UIHelper.MostrarInfo("Cliente eliminado correctamente.");
                 txtEliminarId.Clear();
                 await CargarClientesAsync();
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                UIHelper.MostrarError(ex.Message);
             }
         }
         private async void btnActualizar_Click(object sender, EventArgs e)
@@ -119,7 +117,7 @@ namespace PracticaWinFormsTienda.Forms
                         : txtActualizarCorreo.Text.Trim(),
                     Telefono = string.IsNullOrWhiteSpace(txtActualizarTelefono.Text)
                         ? null
-                        : txtActualizarTelefono.Text.Trim(),
+                        : UIHelper.LimpiarTelefono(txtActualizarTelefono.Text),
                     Direccion = string.IsNullOrWhiteSpace(txtActualizarDireccion.Text)
                         ? null
                         : txtActualizarDireccion.Text.Trim()
@@ -127,20 +125,34 @@ namespace PracticaWinFormsTienda.Forms
 
                 await _clienteRepo.UpdateAsync(cliente);
 
-                MostrarInfo("Cliente actualizado correctamente.");
+                UIHelper.MostrarInfo("Cliente actualizado correctamente.");
                 LimpiarActualizar();
                 await CargarClientesAsync();
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                UIHelper.MostrarError(ex.Message);
             }
         }
         private bool ValidarInsert()
         {
             if (string.IsNullOrWhiteSpace(txtInsertNombre.Text))
             {
-                MostrarError("Nombre son obligatorios.");
+                UIHelper.MostrarError("Nombre son obligatorios.");
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(txtInsertTelefono.Text) &&
+                !UIHelper.EsTelefonoValidoRD(txtInsertTelefono.Text))
+            {
+                UIHelper.MostrarError("El teléfono debe tener 10 dígitos.");
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(txtInsertCorreo.Text) &&
+                !UIHelper.EsCorreoValido(txtInsertCorreo.Text))
+            {
+                UIHelper.MostrarError("El correo electrónico no es válido.");
                 return false;
             }
 
@@ -151,7 +163,21 @@ namespace PracticaWinFormsTienda.Forms
             if (string.IsNullOrWhiteSpace(txtActualizarId.Text) ||
                 string.IsNullOrWhiteSpace(txtActualizarNombre.Text))
             {
-                MostrarError("ID y Nombre son obligatorios.");
+                UIHelper.MostrarError("ID y Nombre son obligatorios.");
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(txtActualizarTelefono.Text) &&
+               !UIHelper.EsTelefonoValidoRD(txtActualizarTelefono.Text))
+            {
+                UIHelper.MostrarError("El teléfono debe tener 10 dígitos.");
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(txtActualizarCorreo.Text) &&
+                !UIHelper.EsCorreoValido(txtActualizarCorreo.Text))
+            {
+                UIHelper.MostrarError("El correo electrónico no es válido.");
                 return false;
             }
 
@@ -164,7 +190,6 @@ namespace PracticaWinFormsTienda.Forms
             txtInsertTelefono.Clear();
             txtInsertDireccion.Clear();
         }
-
         private void LimpiarActualizar()
         {
             txtActualizarId.Clear();
@@ -173,22 +198,39 @@ namespace PracticaWinFormsTienda.Forms
             txtActualizarTelefono.Clear();
             txtActualizarDireccion.Clear();
         }
-        private void MostrarError(string mensaje)
+        private void txtEliminarId_KeyPress(object sender, KeyPressEventArgs e)
         {
-            MessageBox.Show(
-                mensaje,
-                "Error",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+            UIHelper.SoloNumeros(e);
+        }
+        private void txtActualizarId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            UIHelper.SoloNumeros(e);
+        }
+        private void txtInsertTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            UIHelper.SoloNumeros(e);
+        }
+        private void txtActualizarTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            UIHelper.SoloNumeros(e);
+        }
+        private void txtInsertTelefono_TextChanged(object sender, EventArgs e)
+        {
+            UIHelper.TelefonoRD_TextChanged(txtInsertTelefono);
+        }
+        private void txtActualizarTelefono_TextChanged(object sender, EventArgs e)
+        {
+            UIHelper.TelefonoRD_TextChanged(txtActualizarTelefono);
         }
 
-        private void MostrarInfo(string mensaje)
+        private void txtInsertCorreo_TextChanged(object sender, EventArgs e)
         {
-            MessageBox.Show(
-                mensaje,
-                "Información",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            UIHelper.ValidarCorreoEnTiempoReal(txtInsertCorreo, errorProvider1);
+        }
+
+        private void txtActualizarCorreo_TextChanged(object sender, EventArgs e)
+        {
+            UIHelper.ValidarCorreoEnTiempoReal(txtActualizarCorreo, errorProvider1);
         }
     }
 

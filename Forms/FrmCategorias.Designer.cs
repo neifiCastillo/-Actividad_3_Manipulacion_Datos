@@ -39,9 +39,9 @@
             btnEliminar = new Button();
             groupBoxActualizar = new GroupBox();
             btnActualizar = new Button();
-            label2 = new Label();
+            lblNombreActualizar = new Label();
             txtActualizarNombre = new TextBox();
-            label1 = new Label();
+            lblIdActualizar = new Label();
             txtActualizarId = new TextBox();
             btnCargar = new Button();
             groupBoxMostrar = new GroupBox();
@@ -106,7 +106,8 @@
             txtEliminarId.Location = new Point(6, 56);
             txtEliminarId.Name = "txtEliminarId";
             txtEliminarId.Size = new Size(228, 23);
-            txtEliminarId.TabIndex = 1;
+            txtEliminarId.TabIndex = 2;
+            txtEliminarId.KeyPress += txtEliminarId_KeyPress;
             // 
             // groupBoxEliminar
             // 
@@ -134,9 +135,9 @@
             // groupBoxActualizar
             // 
             groupBoxActualizar.Controls.Add(btnActualizar);
-            groupBoxActualizar.Controls.Add(label2);
+            groupBoxActualizar.Controls.Add(lblNombreActualizar);
             groupBoxActualizar.Controls.Add(txtActualizarNombre);
-            groupBoxActualizar.Controls.Add(label1);
+            groupBoxActualizar.Controls.Add(lblIdActualizar);
             groupBoxActualizar.Controls.Add(txtActualizarId);
             groupBoxActualizar.Location = new Point(566, 13);
             groupBoxActualizar.Name = "groupBoxActualizar";
@@ -151,42 +152,43 @@
             btnActualizar.Location = new Point(156, 99);
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(138, 33);
-            btnActualizar.TabIndex = 9;
+            btnActualizar.TabIndex = 6;
             btnActualizar.Text = "Actualizar";
             btnActualizar.UseVisualStyleBackColor = true;
             btnActualizar.Click += btnActualizar_Click;
             // 
-            // label2
+            // lblNombreActualizar
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(120, 34);
-            label2.Name = "label2";
-            label2.Size = new Size(51, 15);
-            label2.TabIndex = 8;
-            label2.Text = "Nombre";
+            lblNombreActualizar.AutoSize = true;
+            lblNombreActualizar.Location = new Point(120, 34);
+            lblNombreActualizar.Name = "lblNombreActualizar";
+            lblNombreActualizar.Size = new Size(51, 15);
+            lblNombreActualizar.TabIndex = 8;
+            lblNombreActualizar.Text = "Nombre";
             // 
             // txtActualizarNombre
             // 
             txtActualizarNombre.Location = new Point(120, 56);
             txtActualizarNombre.Name = "txtActualizarNombre";
             txtActualizarNombre.Size = new Size(296, 23);
-            txtActualizarNombre.TabIndex = 7;
+            txtActualizarNombre.TabIndex = 5;
             // 
-            // label1
+            // lblIdActualizar
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(8, 34);
-            label1.Name = "label1";
-            label1.Size = new Size(18, 15);
-            label1.TabIndex = 6;
-            label1.Text = "ID";
+            lblIdActualizar.AutoSize = true;
+            lblIdActualizar.Location = new Point(8, 34);
+            lblIdActualizar.Name = "lblIdActualizar";
+            lblIdActualizar.Size = new Size(18, 15);
+            lblIdActualizar.TabIndex = 6;
+            lblIdActualizar.Text = "ID";
             // 
             // txtActualizarId
             // 
             txtActualizarId.Location = new Point(8, 56);
             txtActualizarId.Name = "txtActualizarId";
             txtActualizarId.Size = new Size(95, 23);
-            txtActualizarId.TabIndex = 5;
+            txtActualizarId.TabIndex = 4;
+            txtActualizarId.KeyPress += txtActualizarId_KeyPress;
             // 
             // btnCargar
             // 
@@ -194,7 +196,7 @@
             btnCargar.Location = new Point(6, 22);
             btnCargar.Name = "btnCargar";
             btnCargar.Size = new Size(263, 33);
-            btnCargar.TabIndex = 2;
+            btnCargar.TabIndex = 7;
             btnCargar.Text = "Cargar";
             btnCargar.UseVisualStyleBackColor = true;
             btnCargar.Click += btnCargar_Click;
@@ -257,10 +259,10 @@
         private TextBox txtEliminarId;
         private TextBox txtInsertNombre;
         private Button btnEliminar;
-        private Label label1;
+        private Label lblIdActualizar;
         private TextBox txtActualizarId;
         private Button btnActualizar;
-        private Label label2;
+        private Label lblNombreActualizar;
         private TextBox txtActualizarNombre;
         private Button btnCargar;
         private GroupBox groupBoxMostrar;

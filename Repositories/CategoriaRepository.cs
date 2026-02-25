@@ -24,7 +24,7 @@ namespace PracticaWinFormsTienda.Repositories
                 using var conn = _conexion.ObtenerConexion();
                 await conn.OpenAsync();
 
-                string query = "SELECT CategoriaID, NombreCategoria FROM Categorias";
+                string query = "SELECT CategoriaID, NombreCategoria FROM Categorias ORDER BY CategoriaID DESC";
 
                 using var cmd = new SqlCommand(query, conn);
                 using var reader = await cmd.ExecuteReaderAsync();

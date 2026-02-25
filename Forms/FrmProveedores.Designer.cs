@@ -28,16 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProveedores));
             groupBox1 = new GroupBox();
             btnActualizar = new Button();
-            label1 = new Label();
+            lblIdActualizar = new Label();
             txtActualizarId = new TextBox();
-            label7 = new Label();
+            lblTelefonoActualizar = new Label();
             txtActualizarTelefono = new TextBox();
-            label8 = new Label();
+            lblCorreoActualizar = new Label();
             txtActualizarCorreo = new TextBox();
-            label9 = new Label();
+            lblNombreActualizar = new Label();
             txtActualizarNombre = new TextBox();
             groupBoxMostrar = new GroupBox();
             dgvProveedores = new DataGridView();
@@ -47,30 +48,32 @@
             lblID = new Label();
             txtEliminarId = new TextBox();
             groupBoxInsertar = new GroupBox();
-            label4 = new Label();
+            lblTelefono = new Label();
             txtInsertTelefono = new TextBox();
-            label3 = new Label();
+            lblCorreo = new Label();
             txtInsertCorreo = new TextBox();
-            lblNombreCategoria = new Label();
+            lblNombreProveedores = new Label();
             btnAgregar = new Button();
             txtInsertNombre = new TextBox();
+            errorProvider1 = new ErrorProvider(components);
             groupBox1.SuspendLayout();
             groupBoxMostrar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProveedores).BeginInit();
             groupBoxEliminar.SuspendLayout();
             groupBoxInsertar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
             // 
             groupBox1.Controls.Add(btnActualizar);
-            groupBox1.Controls.Add(label1);
+            groupBox1.Controls.Add(lblIdActualizar);
             groupBox1.Controls.Add(txtActualizarId);
-            groupBox1.Controls.Add(label7);
+            groupBox1.Controls.Add(lblTelefonoActualizar);
             groupBox1.Controls.Add(txtActualizarTelefono);
-            groupBox1.Controls.Add(label8);
+            groupBox1.Controls.Add(lblCorreoActualizar);
             groupBox1.Controls.Add(txtActualizarCorreo);
-            groupBox1.Controls.Add(label9);
+            groupBox1.Controls.Add(lblNombreActualizar);
             groupBox1.Controls.Add(txtActualizarNombre);
             groupBox1.Location = new Point(599, 12);
             groupBox1.Name = "groupBox1";
@@ -85,74 +88,78 @@
             btnActualizar.Location = new Point(139, 167);
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(138, 33);
-            btnActualizar.TabIndex = 9;
+            btnActualizar.TabIndex = 11;
             btnActualizar.Text = "Actualizar";
             btnActualizar.UseVisualStyleBackColor = true;
             btnActualizar.Click += btnActualizar_Click;
             // 
-            // label1
+            // lblIdActualizar
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(14, 27);
-            label1.Name = "label1";
-            label1.Size = new Size(18, 15);
-            label1.TabIndex = 6;
-            label1.Text = "ID";
+            lblIdActualizar.AutoSize = true;
+            lblIdActualizar.Location = new Point(14, 27);
+            lblIdActualizar.Name = "lblIdActualizar";
+            lblIdActualizar.Size = new Size(18, 15);
+            lblIdActualizar.TabIndex = 6;
+            lblIdActualizar.Text = "ID";
             // 
             // txtActualizarId
             // 
             txtActualizarId.Location = new Point(14, 48);
             txtActualizarId.Name = "txtActualizarId";
             txtActualizarId.Size = new Size(149, 23);
-            txtActualizarId.TabIndex = 5;
+            txtActualizarId.TabIndex = 7;
+            txtActualizarId.KeyPress += txtActualizarId_KeyPress;
             // 
-            // label7
+            // lblTelefonoActualizar
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(185, 81);
-            label7.Name = "label7";
-            label7.Size = new Size(53, 15);
-            label7.TabIndex = 7;
-            label7.Text = "Telefono";
+            lblTelefonoActualizar.AutoSize = true;
+            lblTelefonoActualizar.Location = new Point(185, 81);
+            lblTelefonoActualizar.Name = "lblTelefonoActualizar";
+            lblTelefonoActualizar.Size = new Size(53, 15);
+            lblTelefonoActualizar.TabIndex = 7;
+            lblTelefonoActualizar.Text = "Telefono";
             // 
             // txtActualizarTelefono
             // 
             txtActualizarTelefono.Location = new Point(187, 100);
             txtActualizarTelefono.Name = "txtActualizarTelefono";
             txtActualizarTelefono.Size = new Size(189, 23);
-            txtActualizarTelefono.TabIndex = 6;
+            txtActualizarTelefono.TabIndex = 10;
+            txtActualizarTelefono.TextChanged += txtActualizarTelefono_TextChanged;
+            txtActualizarTelefono.KeyPress += txtActualizarTelefono_KeyPress;
             // 
-            // label8
+            // lblCorreoActualizar
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(14, 81);
-            label8.Name = "label8";
-            label8.Size = new Size(43, 15);
-            label8.TabIndex = 5;
-            label8.Text = "Correo";
+            lblCorreoActualizar.AutoSize = true;
+            lblCorreoActualizar.Location = new Point(14, 81);
+            lblCorreoActualizar.Name = "lblCorreoActualizar";
+            lblCorreoActualizar.Size = new Size(43, 15);
+            lblCorreoActualizar.TabIndex = 5;
+            lblCorreoActualizar.Text = "Correo";
             // 
             // txtActualizarCorreo
             // 
             txtActualizarCorreo.Location = new Point(12, 100);
             txtActualizarCorreo.Name = "txtActualizarCorreo";
             txtActualizarCorreo.Size = new Size(151, 23);
-            txtActualizarCorreo.TabIndex = 4;
+            txtActualizarCorreo.TabIndex = 9;
+            txtActualizarCorreo.TextChanged += txtActualizarCorreo_TextChanged;
             // 
-            // label9
+            // lblNombreActualizar
             // 
-            label9.AutoSize = true;
-            label9.Location = new Point(188, 26);
-            label9.Name = "label9";
-            label9.Size = new Size(51, 15);
-            label9.TabIndex = 3;
-            label9.Text = "Nombre";
+            lblNombreActualizar.AutoSize = true;
+            lblNombreActualizar.Location = new Point(188, 26);
+            lblNombreActualizar.Name = "lblNombreActualizar";
+            lblNombreActualizar.Size = new Size(51, 15);
+            lblNombreActualizar.TabIndex = 3;
+            lblNombreActualizar.Text = "Nombre";
             // 
             // txtActualizarNombre
             // 
             txtActualizarNombre.Location = new Point(187, 48);
             txtActualizarNombre.Name = "txtActualizarNombre";
             txtActualizarNombre.Size = new Size(189, 23);
-            txtActualizarNombre.TabIndex = 0;
+            txtActualizarNombre.TabIndex = 8;
             // 
             // groupBoxMostrar
             // 
@@ -180,7 +187,7 @@
             btnCargar.Location = new Point(6, 22);
             btnCargar.Name = "btnCargar";
             btnCargar.Size = new Size(263, 33);
-            btnCargar.TabIndex = 2;
+            btnCargar.TabIndex = 12;
             btnCargar.Text = "Cargar";
             btnCargar.UseVisualStyleBackColor = true;
             btnCargar.Click += btnCargar_Click;
@@ -203,7 +210,7 @@
             btnEliminar.Location = new Point(50, 99);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(138, 33);
-            btnEliminar.TabIndex = 3;
+            btnEliminar.TabIndex = 6;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = true;
             btnEliminar.Click += btnEliminar_Click;
@@ -222,15 +229,16 @@
             txtEliminarId.Location = new Point(6, 56);
             txtEliminarId.Name = "txtEliminarId";
             txtEliminarId.Size = new Size(228, 23);
-            txtEliminarId.TabIndex = 1;
+            txtEliminarId.TabIndex = 5;
+            txtEliminarId.KeyPress += txtEliminarId_KeyPress;
             // 
             // groupBoxInsertar
             // 
-            groupBoxInsertar.Controls.Add(label4);
+            groupBoxInsertar.Controls.Add(lblTelefono);
             groupBoxInsertar.Controls.Add(txtInsertTelefono);
-            groupBoxInsertar.Controls.Add(label3);
+            groupBoxInsertar.Controls.Add(lblCorreo);
             groupBoxInsertar.Controls.Add(txtInsertCorreo);
-            groupBoxInsertar.Controls.Add(lblNombreCategoria);
+            groupBoxInsertar.Controls.Add(lblNombreProveedores);
             groupBoxInsertar.Controls.Add(btnAgregar);
             groupBoxInsertar.Controls.Add(txtInsertNombre);
             groupBoxInsertar.Location = new Point(12, 12);
@@ -240,46 +248,49 @@
             groupBoxInsertar.TabStop = false;
             groupBoxInsertar.Text = "Insertar";
             // 
-            // label4
+            // lblTelefono
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(8, 93);
-            label4.Name = "label4";
-            label4.Size = new Size(53, 15);
-            label4.TabIndex = 7;
-            label4.Text = "Telefono";
+            lblTelefono.AutoSize = true;
+            lblTelefono.Location = new Point(8, 93);
+            lblTelefono.Name = "lblTelefono";
+            lblTelefono.Size = new Size(53, 15);
+            lblTelefono.TabIndex = 7;
+            lblTelefono.Text = "Telefono";
             // 
             // txtInsertTelefono
             // 
             txtInsertTelefono.Location = new Point(8, 116);
             txtInsertTelefono.Name = "txtInsertTelefono";
             txtInsertTelefono.Size = new Size(151, 23);
-            txtInsertTelefono.TabIndex = 6;
+            txtInsertTelefono.TabIndex = 3;
+            txtInsertTelefono.TextChanged += txtInsertTelefono_TextChanged;
+            txtInsertTelefono.KeyPress += txtInsertTelefono_KeyPress;
             // 
-            // label3
+            // lblCorreo
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(179, 34);
-            label3.Name = "label3";
-            label3.Size = new Size(43, 15);
-            label3.TabIndex = 5;
-            label3.Text = "Correo";
+            lblCorreo.AutoSize = true;
+            lblCorreo.Location = new Point(179, 34);
+            lblCorreo.Name = "lblCorreo";
+            lblCorreo.Size = new Size(43, 15);
+            lblCorreo.TabIndex = 5;
+            lblCorreo.Text = "Correo";
             // 
             // txtInsertCorreo
             // 
             txtInsertCorreo.Location = new Point(177, 56);
             txtInsertCorreo.Name = "txtInsertCorreo";
             txtInsertCorreo.Size = new Size(151, 23);
-            txtInsertCorreo.TabIndex = 4;
+            txtInsertCorreo.TabIndex = 2;
+            txtInsertCorreo.TextChanged += txtInsertCorreo_TextChanged;
             // 
-            // lblNombreCategoria
+            // lblNombreProveedores
             // 
-            lblNombreCategoria.AutoSize = true;
-            lblNombreCategoria.Location = new Point(8, 34);
-            lblNombreCategoria.Name = "lblNombreCategoria";
-            lblNombreCategoria.Size = new Size(51, 15);
-            lblNombreCategoria.TabIndex = 3;
-            lblNombreCategoria.Text = "Nombre";
+            lblNombreProveedores.AutoSize = true;
+            lblNombreProveedores.Location = new Point(8, 34);
+            lblNombreProveedores.Name = "lblNombreProveedores";
+            lblNombreProveedores.Size = new Size(51, 15);
+            lblNombreProveedores.TabIndex = 3;
+            lblNombreProveedores.Text = "Nombre";
             // 
             // btnAgregar
             // 
@@ -287,7 +298,7 @@
             btnAgregar.Location = new Point(84, 167);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(138, 33);
-            btnAgregar.TabIndex = 2;
+            btnAgregar.TabIndex = 4;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = true;
             btnAgregar.Click += btnAgregar_Click;
@@ -298,6 +309,10 @@
             txtInsertNombre.Name = "txtInsertNombre";
             txtInsertNombre.Size = new Size(153, 23);
             txtInsertNombre.TabIndex = 0;
+            // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
             // 
             // FrmProveedores
             // 
@@ -323,6 +338,7 @@
             groupBoxEliminar.PerformLayout();
             groupBoxInsertar.ResumeLayout(false);
             groupBoxInsertar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
         }
 
@@ -330,13 +346,13 @@
 
         private GroupBox groupBox1;
         private Button btnActualizar;
-        private Label label1;
+        private Label lblIdActualizar;
         private TextBox txtActualizarId;
-        private Label label7;
+        private Label lblTelefonoActualizar;
         private TextBox txtActualizarTelefono;
-        private Label label8;
+        private Label lblCorreoActualizar;
         private TextBox txtActualizarCorreo;
-        private Label label9;
+        private Label lblNombreActualizar;
         private TextBox txtActualizarNombre;
         private GroupBox groupBoxMostrar;
         private DataGridView dgvProveedores;
@@ -346,12 +362,13 @@
         private Label lblID;
         private TextBox txtEliminarId;
         private GroupBox groupBoxInsertar;
-        private Label label4;
+        private Label lblTelefono;
         private TextBox txtInsertTelefono;
-        private Label label3;
+        private Label lblCorreo;
         private TextBox txtInsertCorreo;
-        private Label lblNombreCategoria;
+        private Label lblNombreProveedores;
         private Button btnAgregar;
         private TextBox txtInsertNombre;
+        private ErrorProvider errorProvider1;
     }
 }
