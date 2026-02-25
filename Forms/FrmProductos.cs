@@ -1,5 +1,6 @@
 ﻿using PracticaWinFormsTienda.Models;
 using PracticaWinFormsTienda.Repositories.Interfaces;
+using PracticaWinFormsTienda.Utils;
 
 namespace PracticaWinFormsTienda.Forms
 {
@@ -39,7 +40,7 @@ namespace PracticaWinFormsTienda.Forms
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                UIHelper.MostrarError(ex.Message);
             }
         }
         private async Task CargarProductosAsync()
@@ -73,7 +74,7 @@ namespace PracticaWinFormsTienda.Forms
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                UIHelper.MostrarError(ex.Message);
             }
             finally
             {
@@ -102,13 +103,13 @@ namespace PracticaWinFormsTienda.Forms
 
                 await _productoRepo.InsertAsync(producto);
 
-                MostrarInfo("Producto insertado correctamente.");
+                UIHelper.MostrarInfo("Producto insertado correctamente.");
                 LimpiarInsert();
                 await CargarProductosAsync();
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                UIHelper.MostrarError(ex.Message);
             }
         }
         private async void btnEliminar_Click(object sender, EventArgs e)
@@ -117,30 +118,27 @@ namespace PracticaWinFormsTienda.Forms
             {
                 if (string.IsNullOrWhiteSpace(txtEliminarId.Text))
                 {
-                    MostrarError("Debe ingresar el ID a eliminar.");
+                    UIHelper.MostrarError("Debe ingresar el ID a eliminar.");
                     return;
                 }
 
                 int id = int.Parse(txtEliminarId.Text);
 
-                var confirm = MessageBox.Show(
-                    "¿Seguro que desea eliminar este producto?",
-                    "Confirmar eliminación",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning);
+                var confirm = UIHelper.Confirmar(
+                    "¿Seguro que desea eliminar este producto?");
 
                 if (confirm == DialogResult.No)
                     return;
 
                 await _productoRepo.DeleteAsync(id);
 
-                MostrarInfo("Producto eliminado correctamente.");
+                UIHelper.MostrarInfo("Producto eliminado correctamente.");
                 txtEliminarId.Clear();
                 await CargarProductosAsync();
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                UIHelper.MostrarError(ex.Message);
             }
         }
         private async void btnActualizar_Click(object sender, EventArgs e)
@@ -162,13 +160,13 @@ namespace PracticaWinFormsTienda.Forms
 
                 await _productoRepo.UpdateAsync(producto);
 
-                MostrarInfo("Producto actualizado correctamente.");
+                UIHelper.MostrarInfo("Producto actualizado correctamente.");
                 LimpiarActualizar();
                 await CargarProductosAsync();
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                UIHelper.MostrarError(ex.Message);
             }
         }
         private bool ValidarInsert()
@@ -177,14 +175,14 @@ namespace PracticaWinFormsTienda.Forms
                 string.IsNullOrWhiteSpace(txtInsertPrecio.Text) ||
                 string.IsNullOrWhiteSpace(txtInsertStock.Text))
             {
-                MostrarError("Todos los campos obligatorios deben completarse.");
+                UIHelper.MostrarError("Todos los campos obligatorios deben completarse.");
                 return false;
             }
 
             if (!decimal.TryParse(txtInsertPrecio.Text, out _) ||
                 !int.TryParse(txtInsertStock.Text, out _))
             {
-                MostrarError("Precio y Stock deben ser numéricos.");
+                UIHelper.MostrarError("Precio y Stock deben ser numéricos.");
                 return false;
             }
 
@@ -195,7 +193,7 @@ namespace PracticaWinFormsTienda.Forms
             if (string.IsNullOrWhiteSpace(txtActualizarId.Text) ||
                 string.IsNullOrWhiteSpace(txtActualizarNombre.Text))
             {
-                MostrarError("ID y Nombre son obligatorios.");
+                UIHelper.MostrarError("ID y Nombre son obligatorios.");
                 return false;
             }
 
@@ -216,51 +214,29 @@ namespace PracticaWinFormsTienda.Forms
             txtActualizarPrecio.Clear();
             txtActualizarStock.Clear();
         }
-        private void MostrarError(string mensaje)
-        {
-            MessageBox.Show(
-                mensaje,
-                "Error",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
-        }
-
-        private void MostrarInfo(string mensaje)
-        {
-            MessageBox.Show(
-                mensaje,
-                "Información",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-        }
-
-        private void Int_KeyPress(KeyPressEventArgs e)
-        {
-            // Verifica si la tecla presionada no es un número y tampoco es la tecla de borrar (backspace)
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true; // Ignora la tecla presionada
-            }
-        }
-
         private void txtInsertPrecio_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Int_KeyPress(e);
+            UIHelper.SoloNumeros(e);
         }
-
         private void txtInsertStock_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Int_KeyPress(e);
+            UIHelper.SoloNumeros(e);
         }
-
         private void txtActualizarStock_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Int_KeyPress(e);
+            UIHelper.SoloNumeros(e);
         }
-
         private void txtActualizarPrecio_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Int_KeyPress(e);
+            UIHelper.SoloNumeros(e);
+        }
+        private void txtEliminarId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            UIHelper.SoloNumeros(e);
+        }
+        private void txtActualizarId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            UIHelper.SoloNumeros(e);
         }
     }
 }

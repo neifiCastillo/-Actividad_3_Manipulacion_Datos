@@ -27,7 +27,7 @@ namespace PracticaWinFormsTienda.Repositories
                 string query = @"
                     SELECT p.*, c.NombreCategoria 
                     FROM Productos p
-                    LEFT JOIN Categorias c ON p.CategoriaID = c.CategoriaID";
+                    LEFT JOIN Categorias c ON p.CategoriaID = c.CategoriaID ORDER BY ProductoID DESC";
 
                 using var cmd = new SqlCommand(query, conn);
                 using var reader = await cmd.ExecuteReaderAsync();

@@ -1,5 +1,6 @@
 ﻿using PracticaWinFormsTienda.Models;
 using PracticaWinFormsTienda.Repositories.Interfaces;
+using PracticaWinFormsTienda.Utils;
 
 namespace PracticaWinFormsTienda.Forms
 {
@@ -30,7 +31,7 @@ namespace PracticaWinFormsTienda.Forms
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                UIHelper.MostrarError(ex.Message);
             }
             finally
             {
@@ -51,13 +52,13 @@ namespace PracticaWinFormsTienda.Forms
 
                 await _categoriaRepo.InsertAsync(categoria);
 
-                MostrarInfo("Categoría insertada correctamente.");
+                UIHelper.MostrarInfo("Categoría insertada correctamente.");
                 LimpiarInsert();
                 await CargarCategoriasAsync();
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                UIHelper.MostrarError(ex.Message);
             }
         }
         private async void btnEliminar_Click(object sender, EventArgs e)
@@ -66,30 +67,27 @@ namespace PracticaWinFormsTienda.Forms
             {
                 if (string.IsNullOrWhiteSpace(txtEliminarId.Text))
                 {
-                    MostrarError("Debe ingresar el ID a eliminar.");
+                    UIHelper.MostrarError("Debe ingresar el ID a eliminar.");
                     return;
                 }
 
                 int id = int.Parse(txtEliminarId.Text);
 
-                var confirm = MessageBox.Show(
-                    "¿Seguro que desea eliminar esta categoría?",
-                    "Confirmar eliminación",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning);
+                var confirm = UIHelper.Confirmar(
+                    "¿Seguro que desea eliminar esta categoría?");
 
                 if (confirm == DialogResult.No)
                     return;
 
                 await _categoriaRepo.DeleteAsync(id);
 
-                MostrarInfo("Categoría eliminada correctamente.");
+                UIHelper.MostrarInfo("Categoría eliminada correctamente.");
                 txtEliminarId.Clear();
                 await CargarCategoriasAsync();
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                UIHelper.MostrarError(ex.Message);
             }
         }
         private async void btnActualizar_Click(object sender, EventArgs e)
@@ -107,42 +105,40 @@ namespace PracticaWinFormsTienda.Forms
 
                 await _categoriaRepo.UpdateAsync(categoria);
 
-                MostrarInfo("Categoría actualizada correctamente.");
+                UIHelper.MostrarInfo("Categoría actualizada correctamente.");
                 LimpiarActualizar();
                 await CargarCategoriasAsync();
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                UIHelper.MostrarError(ex.Message);
             }
         }
         private bool ValidarInsert()
         {
             if (string.IsNullOrWhiteSpace(txtInsertNombre.Text))
             {
-                MostrarError("Todos los campos de Insertar son obligatorios.");
+                UIHelper.MostrarError("Todos los campos de Insertar son obligatorios.");
                 return false;
             }
             return true;
         }
-
         private bool ValidarActualizar()
         {
             if (string.IsNullOrWhiteSpace(txtActualizarId.Text) ||
                 string.IsNullOrWhiteSpace(txtActualizarNombre.Text))
             {
-                MostrarError("Todos los campos de Actualizar son obligatorios.");
+                UIHelper.MostrarError("Todos los campos de Actualizar son obligatorios.");
                 return false;
             }
 
             if (!int.TryParse(txtActualizarId.Text, out _))
             {
-                MostrarError("El ID debe ser numérico.");
+                UIHelper.MostrarError("El ID debe ser numérico.");
                 return false;
             }
             return true;
         }
-
         private void LimpiarInsert()
         {
             txtInsertNombre.Clear();
@@ -152,21 +148,13 @@ namespace PracticaWinFormsTienda.Forms
             txtActualizarId.Clear();
             txtActualizarNombre.Clear();
         }
-        private void MostrarError(string mensaje)
+        private void txtEliminarId_KeyPress(object sender, KeyPressEventArgs e)
         {
-            MessageBox.Show(
-                mensaje,
-                "Error",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+            UIHelper.SoloNumeros(e);
         }
-        private void MostrarInfo(string mensaje)
+        private void txtActualizarId_KeyPress(object sender, KeyPressEventArgs e)
         {
-            MessageBox.Show(
-                mensaje,
-                "Información",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            UIHelper.SoloNumeros(e);
         }
     }
 }
