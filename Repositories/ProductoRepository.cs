@@ -106,7 +106,7 @@ namespace PracticaWinFormsTienda.Repositories
                     INSERT INTO Productos
                     (NombreProducto, Descripcion, Precio, Stock, CategoriaID)
                     VALUES
-                    (@id,@nombre,@desc,@precio,@stock,@categoria)";
+                    (@nombre,@desc,@precio,@stock,@categoria)";
 
                 using var cmd = new SqlCommand(query, conn);
 
