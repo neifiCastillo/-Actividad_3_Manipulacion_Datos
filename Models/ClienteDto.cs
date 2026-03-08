@@ -1,10 +1,10 @@
 ﻿namespace PracticaWinFormsTienda.Models
 {
-    public class Cliente
+    public class ClienteDto
     {
-        public int ClienteID { get; set; }
+        public int Id { get; set; }
 
-        public string NombreCompleto { get; set; } = string.Empty;
+        public string NombreCompleto { get; set; } = null!;
 
         public string? CorreoElectronico { get; set; }
 

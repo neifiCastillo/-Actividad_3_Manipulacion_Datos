@@ -1,8 +1,8 @@
-﻿using PracticaWinFormsTienda.Models;
+﻿using PracticaWinFormsTienda.Data;
 
 namespace PracticaWinFormsTienda.Repositories.Interfaces
 {
-    public interface IProveedorRepository : IRepository<Proveedor>
+    public interface IProveedorRepository : IRepository<Proveedore>
     {
     }
 }

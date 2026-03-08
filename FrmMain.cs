@@ -1,57 +1,41 @@
+using Microsoft.Extensions.DependencyInjection;
 using PracticaWinFormsTienda.Forms;
-using PracticaWinFormsTienda.Repositories.Interfaces;
 
 namespace PracticaWinFormsTienda
 {
     public partial class FrmMain : Form
     {
-        private readonly ICategoriaRepository _categoriaRepo;
-        private readonly IProductoRepository _productoRepo;
-        private readonly IClienteRepository _clienteRepo;
-        private readonly IProveedorRepository _proveedorRepo;
-
-        public FrmMain(
-        ICategoriaRepository categoriaRepo,
-        IProductoRepository productoRepo,
-        IClienteRepository clienteRepo,
-        IProveedorRepository proveedorRepo)
+        public FrmMain()
         {
             InitializeComponent();
-
-            _categoriaRepo = categoriaRepo;
-            _productoRepo = productoRepo;
-            _clienteRepo = clienteRepo;
-            _proveedorRepo = proveedorRepo;
         }
-
 
         private void categoriasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var frm = new FrmCategorias(_categoriaRepo);
+            var frm = Program.ServiceProvider.GetRequiredService<FrmCategorias>();
             frm.MdiParent = this;
             frm.Show();
         }
 
         private void productosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var frm = new FrmProductos(_productoRepo, _categoriaRepo);
+            var frm = Program.ServiceProvider.GetRequiredService<FrmProductos>();
             frm.MdiParent = this;
             frm.Show();
         }
 
         private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var frm = new FrmClientes(_clienteRepo);
+            var frm = Program.ServiceProvider.GetRequiredService<FrmClientes>();
             frm.MdiParent = this;
             frm.Show();
         }
 
         private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var frm = new FrmProveedores(_proveedorRepo);
+            var frm = Program.ServiceProvider.GetRequiredService<FrmProveedores>();
             frm.MdiParent = this;
             frm.Show();
-
         }
     }
 }

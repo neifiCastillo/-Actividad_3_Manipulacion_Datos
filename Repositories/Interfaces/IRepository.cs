@@ -1,11 +1,16 @@
 ﻿namespace PracticaWinFormsTienda.Repositories.Interfaces
 {
-    public interface IRepository<T>
+    public interface IRepository<TEntity>
+        where TEntity : class
     {
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<T?> GetByIdAsync(int id);
-        Task InsertAsync(T entity);
-        Task UpdateAsync(T entity);
+        Task<IEnumerable<TEntity>> GetAllAsync();
+
+        Task<TEntity?> GetByIdAsync(int id);
+
+        Task InsertAsync(TEntity entity);
+
+        Task UpdateAsync(TEntity entity);
+
         Task DeleteAsync(int id);
     }
 }
