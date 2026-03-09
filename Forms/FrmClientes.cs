@@ -1,31 +1,49 @@
 ﻿using PracticaWinFormsTienda.Models;
-using PracticaWinFormsTienda.Repositories.Interfaces;
+using PracticaWinFormsTienda.Services.Interfaces;
 using PracticaWinFormsTienda.Utils;
 
 namespace PracticaWinFormsTienda.Forms
 {
-
     public partial class FrmClientes : Form
     {
-        private readonly IClienteRepository _clienteRepo;
+        private readonly IClienteService _clienteService;
 
-        public FrmClientes(IClienteRepository clienteRepo)
+        public FrmClientes(IClienteService clienteService)
         {
             InitializeComponent();
-            _clienteRepo = clienteRepo;
+            _clienteService = clienteService;
         }
+
         private async void FrmClientes_Load(object sender, EventArgs e)
         {
             await CargarClientesAsync();
         }
+
+        private async void btnCargar_Click(object sender, EventArgs e)
+        {
+            await CargarClientesAsync();
+        }
+
         private async Task CargarClientesAsync()
         {
             try
             {
                 btnCargar.Enabled = false;
 
-                var clientes = await _clienteRepo.GetAllAsync();
-                dgvClientes.DataSource = clientes.ToList();
+                var clientes = await _clienteService.GetAllAsync();
+
+                dgvClientes.DataSource = clientes.OrderByDescending(p => p.Id)
+               .ToList(); ;
+
+                dgvClientes.Columns["Id"].HeaderText = "ID";
+                dgvClientes.Columns["NombreCompleto"].HeaderText = "Nombre";
+                dgvClientes.Columns["CorreoElectronico"].HeaderText = "Correo";
+                dgvClientes.Columns["Telefono"].HeaderText = "Teléfono";
+                dgvClientes.Columns["Direccion"].HeaderText = "Dirección";
+
+                dgvClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvClientes.ReadOnly = true;
+                dgvClientes.AllowUserToAddRows = false;
             }
             catch (Exception ex)
             {
@@ -36,10 +54,7 @@ namespace PracticaWinFormsTienda.Forms
                 btnCargar.Enabled = true;
             }
         }
-        private async void btnCargar_Click(object sender, EventArgs e)
-        {
-            await CargarClientesAsync();
-        }
+
         private async void btnAgregar_Click(object sender, EventArgs e)
         {
             try
@@ -47,7 +62,7 @@ namespace PracticaWinFormsTienda.Forms
                 if (!ValidarInsert())
                     return;
 
-                var cliente = new Cliente
+                var cliente = new ClienteDto
                 {
                     NombreCompleto = txtInsertNombre.Text.Trim(),
                     CorreoElectronico = string.IsNullOrWhiteSpace(txtInsertCorreo.Text)
@@ -61,10 +76,12 @@ namespace PracticaWinFormsTienda.Forms
                         : txtInsertDireccion.Text.Trim()
                 };
 
-                await _clienteRepo.InsertAsync(cliente);
+                await _clienteService.AddAsync(cliente);
 
                 UIHelper.MostrarInfo("Cliente insertado correctamente.");
+
                 LimpiarInsert();
+
                 await CargarClientesAsync();
             }
             catch (Exception ex)
@@ -72,6 +89,7 @@ namespace PracticaWinFormsTienda.Forms
                 UIHelper.MostrarError(ex.Message);
             }
         }
+
         private async void btnEliminar_Click(object sender, EventArgs e)
         {
             try
@@ -90,10 +108,12 @@ namespace PracticaWinFormsTienda.Forms
                 if (confirm == DialogResult.No)
                     return;
 
-                await _clienteRepo.DeleteAsync(id);
+                await _clienteService.DeleteAsync(id);
 
                 UIHelper.MostrarInfo("Cliente eliminado correctamente.");
+
                 txtEliminarId.Clear();
+
                 await CargarClientesAsync();
             }
             catch (Exception ex)
@@ -101,6 +121,7 @@ namespace PracticaWinFormsTienda.Forms
                 UIHelper.MostrarError(ex.Message);
             }
         }
+
         private async void btnActualizar_Click(object sender, EventArgs e)
         {
             try
@@ -108,9 +129,9 @@ namespace PracticaWinFormsTienda.Forms
                 if (!ValidarActualizar())
                     return;
 
-                var cliente = new Cliente
+                var cliente = new ClienteDto
                 {
-                    ClienteID = int.Parse(txtActualizarId.Text),
+                    Id = int.Parse(txtActualizarId.Text),
                     NombreCompleto = txtActualizarNombre.Text.Trim(),
                     CorreoElectronico = string.IsNullOrWhiteSpace(txtActualizarCorreo.Text)
                         ? null
@@ -123,10 +144,12 @@ namespace PracticaWinFormsTienda.Forms
                         : txtActualizarDireccion.Text.Trim()
                 };
 
-                await _clienteRepo.UpdateAsync(cliente);
+                await _clienteService.UpdateAsync(cliente);
 
                 UIHelper.MostrarInfo("Cliente actualizado correctamente.");
+
                 LimpiarActualizar();
+
                 await CargarClientesAsync();
             }
             catch (Exception ex)
@@ -134,11 +157,12 @@ namespace PracticaWinFormsTienda.Forms
                 UIHelper.MostrarError(ex.Message);
             }
         }
+
         private bool ValidarInsert()
         {
             if (string.IsNullOrWhiteSpace(txtInsertNombre.Text))
             {
-                UIHelper.MostrarError("Nombre son obligatorios.");
+                UIHelper.MostrarError("El nombre es obligatorio.");
                 return false;
             }
 
@@ -158,6 +182,7 @@ namespace PracticaWinFormsTienda.Forms
 
             return true;
         }
+
         private bool ValidarActualizar()
         {
             if (string.IsNullOrWhiteSpace(txtActualizarId.Text) ||
@@ -168,7 +193,7 @@ namespace PracticaWinFormsTienda.Forms
             }
 
             if (!string.IsNullOrWhiteSpace(txtActualizarTelefono.Text) &&
-               !UIHelper.EsTelefonoValidoRD(txtActualizarTelefono.Text))
+                !UIHelper.EsTelefonoValidoRD(txtActualizarTelefono.Text))
             {
                 UIHelper.MostrarError("El teléfono debe tener 10 dígitos.");
                 return false;
@@ -183,6 +208,7 @@ namespace PracticaWinFormsTienda.Forms
 
             return true;
         }
+
         private void LimpiarInsert()
         {
             txtInsertNombre.Clear();
@@ -190,6 +216,7 @@ namespace PracticaWinFormsTienda.Forms
             txtInsertTelefono.Clear();
             txtInsertDireccion.Clear();
         }
+
         private void LimpiarActualizar()
         {
             txtActualizarId.Clear();
@@ -198,26 +225,32 @@ namespace PracticaWinFormsTienda.Forms
             txtActualizarTelefono.Clear();
             txtActualizarDireccion.Clear();
         }
+
         private void txtEliminarId_KeyPress(object sender, KeyPressEventArgs e)
         {
             UIHelper.SoloNumeros(e);
         }
+
         private void txtActualizarId_KeyPress(object sender, KeyPressEventArgs e)
         {
             UIHelper.SoloNumeros(e);
         }
+
         private void txtInsertTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
             UIHelper.SoloNumeros(e);
         }
+
         private void txtActualizarTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
             UIHelper.SoloNumeros(e);
         }
+
         private void txtInsertTelefono_TextChanged(object sender, EventArgs e)
         {
             UIHelper.TelefonoRD_TextChanged(txtInsertTelefono);
         }
+
         private void txtActualizarTelefono_TextChanged(object sender, EventArgs e)
         {
             UIHelper.TelefonoRD_TextChanged(txtActualizarTelefono);
@@ -233,5 +266,4 @@ namespace PracticaWinFormsTienda.Forms
             UIHelper.ValidarCorreoEnTiempoReal(txtActualizarCorreo, errorProvider1);
         }
     }
-
 }

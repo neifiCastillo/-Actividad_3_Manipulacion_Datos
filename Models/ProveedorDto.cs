@@ -1,10 +1,10 @@
 ﻿namespace PracticaWinFormsTienda.Models
 {
-    public class Proveedor
+    public class ProveedorDto
     {
-        public int ProveedorID { get; set; }
+        public int Id { get; set; }
 
-        public string NombreProveedor { get; set; } = string.Empty;
+        public string NombreProveedor { get; set; } = null!;
 
         public string? Telefono { get; set; }
 

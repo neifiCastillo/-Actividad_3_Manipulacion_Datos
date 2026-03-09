@@ -1,31 +1,48 @@
 ﻿using PracticaWinFormsTienda.Models;
-using PracticaWinFormsTienda.Repositories.Interfaces;
+using PracticaWinFormsTienda.Services.Interfaces;
 using PracticaWinFormsTienda.Utils;
-using System.Windows.Forms;
 
 namespace PracticaWinFormsTienda.Forms
 {
     public partial class FrmProveedores : Form
     {
-        private readonly IProveedorRepository _proveedorRepo;
+        private readonly IProveedorService _proveedorService;
 
-        public FrmProveedores(IProveedorRepository proveedorRepo)
+        public FrmProveedores(IProveedorService proveedorService)
         {
             InitializeComponent();
-            _proveedorRepo = proveedorRepo;
+            _proveedorService = proveedorService;
         }
+
         private async void FrmProveedores_Load(object sender, EventArgs e)
         {
             await CargarProveedoresAsync();
         }
+
+        private async void btnCargar_Click(object sender, EventArgs e)
+        {
+            await CargarProveedoresAsync();
+        }
+
         private async Task CargarProveedoresAsync()
         {
             try
             {
                 btnCargar.Enabled = false;
 
-                var proveedores = await _proveedorRepo.GetAllAsync();
-                dgvProveedores.DataSource = proveedores.ToList();
+                var proveedores = await _proveedorService.GetAllAsync();
+
+                dgvProveedores.DataSource = proveedores.OrderByDescending(p => p.Id)
+               .ToList(); ;
+
+                dgvProveedores.Columns["Id"].HeaderText = "ID";
+                dgvProveedores.Columns["NombreProveedor"].HeaderText = "Nombre";
+                dgvProveedores.Columns["Telefono"].HeaderText = "Teléfono";
+                dgvProveedores.Columns["CorreoElectronico"].HeaderText = "Correo";
+
+                dgvProveedores.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvProveedores.ReadOnly = true;
+                dgvProveedores.AllowUserToAddRows = false;
             }
             catch (Exception ex)
             {
@@ -36,10 +53,7 @@ namespace PracticaWinFormsTienda.Forms
                 btnCargar.Enabled = true;
             }
         }
-        private async void btnCargar_Click(object sender, EventArgs e)
-        {
-            await CargarProveedoresAsync();
-        }
+
         private async void btnAgregar_Click(object sender, EventArgs e)
         {
             try
@@ -47,7 +61,7 @@ namespace PracticaWinFormsTienda.Forms
                 if (!ValidarInsert())
                     return;
 
-                var proveedor = new Proveedor
+                var proveedor = new ProveedorDto
                 {
                     NombreProveedor = txtInsertNombre.Text.Trim(),
                     Telefono = string.IsNullOrWhiteSpace(txtInsertTelefono.Text)
@@ -58,10 +72,12 @@ namespace PracticaWinFormsTienda.Forms
                         : txtInsertCorreo.Text.Trim()
                 };
 
-                await _proveedorRepo.InsertAsync(proveedor);
+                await _proveedorService.AddAsync(proveedor);
 
                 UIHelper.MostrarInfo("Proveedor insertado correctamente.");
+
                 LimpiarInsert();
+
                 await CargarProveedoresAsync();
             }
             catch (Exception ex)
@@ -69,6 +85,7 @@ namespace PracticaWinFormsTienda.Forms
                 UIHelper.MostrarError(ex.Message);
             }
         }
+
         private async void btnEliminar_Click(object sender, EventArgs e)
         {
             try
@@ -87,10 +104,12 @@ namespace PracticaWinFormsTienda.Forms
                 if (confirm == DialogResult.No)
                     return;
 
-                await _proveedorRepo.DeleteAsync(id);
+                await _proveedorService.DeleteAsync(id);
 
                 UIHelper.MostrarInfo("Proveedor eliminado correctamente.");
+
                 txtEliminarId.Clear();
+
                 await CargarProveedoresAsync();
             }
             catch (Exception ex)
@@ -98,6 +117,7 @@ namespace PracticaWinFormsTienda.Forms
                 UIHelper.MostrarError(ex.Message);
             }
         }
+
         private async void btnActualizar_Click(object sender, EventArgs e)
         {
             try
@@ -105,9 +125,9 @@ namespace PracticaWinFormsTienda.Forms
                 if (!ValidarActualizar())
                     return;
 
-                var proveedor = new Proveedor
+                var proveedor = new ProveedorDto
                 {
-                    ProveedorID = int.Parse(txtActualizarId.Text),
+                    Id = int.Parse(txtActualizarId.Text),
                     NombreProveedor = txtActualizarNombre.Text.Trim(),
                     Telefono = string.IsNullOrWhiteSpace(txtActualizarTelefono.Text)
                         ? null
@@ -117,10 +137,12 @@ namespace PracticaWinFormsTienda.Forms
                         : txtActualizarCorreo.Text.Trim()
                 };
 
-                await _proveedorRepo.UpdateAsync(proveedor);
+                await _proveedorService.UpdateAsync(proveedor);
 
                 UIHelper.MostrarInfo("Proveedor actualizado correctamente.");
+
                 LimpiarActualizar();
+
                 await CargarProveedoresAsync();
             }
             catch (Exception ex)
@@ -128,11 +150,12 @@ namespace PracticaWinFormsTienda.Forms
                 UIHelper.MostrarError(ex.Message);
             }
         }
+
         private bool ValidarInsert()
         {
             if (string.IsNullOrWhiteSpace(txtInsertNombre.Text))
             {
-                UIHelper.MostrarError("Nombre son obligatorios.");
+                UIHelper.MostrarError("El nombre es obligatorio.");
                 return false;
             }
 
@@ -144,7 +167,7 @@ namespace PracticaWinFormsTienda.Forms
             }
 
             if (!string.IsNullOrWhiteSpace(txtInsertCorreo.Text) &&
-               !UIHelper.EsCorreoValido(txtInsertCorreo.Text))
+                !UIHelper.EsCorreoValido(txtInsertCorreo.Text))
             {
                 UIHelper.MostrarError("El correo electrónico no es válido.");
                 return false;
@@ -152,6 +175,7 @@ namespace PracticaWinFormsTienda.Forms
 
             return true;
         }
+
         private bool ValidarActualizar()
         {
             if (string.IsNullOrWhiteSpace(txtActualizarId.Text) ||
@@ -169,7 +193,7 @@ namespace PracticaWinFormsTienda.Forms
             }
 
             if (!string.IsNullOrWhiteSpace(txtActualizarCorreo.Text) &&
-               !UIHelper.EsCorreoValido(txtActualizarCorreo.Text))
+                !UIHelper.EsCorreoValido(txtActualizarCorreo.Text))
             {
                 UIHelper.MostrarError("El correo electrónico no es válido.");
                 return false;
@@ -177,12 +201,14 @@ namespace PracticaWinFormsTienda.Forms
 
             return true;
         }
+
         private void LimpiarInsert()
         {
             txtInsertNombre.Clear();
             txtInsertTelefono.Clear();
             txtInsertCorreo.Clear();
         }
+
         private void LimpiarActualizar()
         {
             txtActualizarId.Clear();
@@ -190,26 +216,32 @@ namespace PracticaWinFormsTienda.Forms
             txtActualizarTelefono.Clear();
             txtActualizarCorreo.Clear();
         }
+
         private void txtEliminarId_KeyPress(object sender, KeyPressEventArgs e)
         {
             UIHelper.SoloNumeros(e);
         }
+
         private void txtActualizarId_KeyPress(object sender, KeyPressEventArgs e)
         {
             UIHelper.SoloNumeros(e);
         }
+
         private void txtInsertTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
             UIHelper.SoloNumeros(e);
         }
+
         private void txtActualizarTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
             UIHelper.SoloNumeros(e);
         }
+
         private void txtInsertTelefono_TextChanged(object sender, EventArgs e)
         {
             UIHelper.TelefonoRD_TextChanged(txtInsertTelefono);
         }
+
         private void txtActualizarTelefono_TextChanged(object sender, EventArgs e)
         {
             UIHelper.TelefonoRD_TextChanged(txtActualizarTelefono);
@@ -223,7 +255,6 @@ namespace PracticaWinFormsTienda.Forms
         private void txtActualizarCorreo_TextChanged(object sender, EventArgs e)
         {
             UIHelper.ValidarCorreoEnTiempoReal(txtActualizarCorreo, errorProvider1);
-
         }
     }
 }
