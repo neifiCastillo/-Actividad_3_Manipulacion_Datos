@@ -1,6 +1,4 @@
-﻿
-
-using PracticaWinFormsTienda.Data;
+﻿using PracticaWinFormsTienda.Data;
 
 namespace PracticaWinFormsTienda.Repositories.Interfaces
 {

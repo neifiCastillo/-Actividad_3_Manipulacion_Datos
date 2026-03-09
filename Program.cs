@@ -1,11 +1,11 @@
-using PracticaWinFormsTienda.Repositories.Interfaces;
-using PracticaWinFormsTienda.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PracticaWinFormsTienda.Data;
 using PracticaWinFormsTienda.Forms;
-using Microsoft.EntityFrameworkCore;
-using PracticaWinFormsTienda.Services.Interfaces;
+using PracticaWinFormsTienda.Repositories;
+using PracticaWinFormsTienda.Repositories.Interfaces;
 using PracticaWinFormsTienda.Services;
+using PracticaWinFormsTienda.Services.Interfaces;
 using System.Configuration;
 
 namespace PracticaWinFormsTienda

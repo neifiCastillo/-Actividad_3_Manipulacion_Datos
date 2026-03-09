@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace PracticaWinFormsTienda.Data;
 
@@ -30,8 +28,6 @@ public partial class PracticaTiendaContext : DbContext
     public virtual DbSet<Producto> Productos { get; set; }
 
     public virtual DbSet<Proveedore> Proveedores { get; set; }
-
- //   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer("Server=DESKTOP-NDSAP95;Database=PracticaBD_Tienda;Trusted_Connection=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

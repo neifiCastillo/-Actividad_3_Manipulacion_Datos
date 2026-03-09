@@ -1,10 +1,9 @@
 ﻿using PracticaWinFormsTienda.Data;
-using PracticaWinFormsTienda.Repositories.Interfaces;
-using PracticaWinFormsTienda.Services.Interfaces;
-using PracticaWinFormsTienda.Services;
-using PracticaWinFormsTienda.Utils;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using PracticaWinFormsTienda.Models;
+using PracticaWinFormsTienda.Repositories.Interfaces;
+using PracticaWinFormsTienda.Services;
+using PracticaWinFormsTienda.Services.Interfaces;
+using PracticaWinFormsTienda.Utils;
 
 public class CategoriaService
     : GenericService<CategoriaDto, Categoria>, ICategoriaService

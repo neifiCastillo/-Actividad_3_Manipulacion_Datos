@@ -1,5 +1,4 @@
-﻿using PracticaWinFormsTienda.Data;
-using PracticaWinFormsTienda.Models;
+﻿using PracticaWinFormsTienda.Models;
 using PracticaWinFormsTienda.Services.Interfaces;
 using PracticaWinFormsTienda.Utils;
 
